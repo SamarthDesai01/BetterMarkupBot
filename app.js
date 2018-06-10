@@ -60,6 +60,16 @@ bot.on(/^\/italics (.+)$/, (msg, props) => {
     return bot.sendMessage(msg.from.id,"_" + text + "_", { parseMode: "Markdown" });
 });
 
+bot.on(/^\/tiny (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeTiny(text));
+});
+
+bot.on(/^\/smallcaps (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeSmallCaps(text));
+});
+
 
 /**
  * Method to convert a string into superscript text. Items that can't be converted will be left as is.  

@@ -97,6 +97,8 @@ Hey I'm BarkupBot! I'm an easy way to create stylized text in telegram!
 Here are the commands you can access from here, but you can message me directly in any chat and get the exact same features!
 /bold Make your text bold
 /italics Make your text italicized
+/tiny Make your text ˢᵐᵃˡˡ
+/smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 `;
 
 module.exports = {
