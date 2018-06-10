@@ -2,6 +2,7 @@ const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(apikey.KEY);
+const markupSymbols = ['t','s','-'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
@@ -82,6 +83,11 @@ bot.on(/^\/strthr (.+)$/, (msg, props) => {
     return bot.sendMessage(msg.from.id, makeStrikeThrough(text));
 });
 
+bot.on(/^\/custom (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeCustom(text));
+});
+
 
 /**
  * Method to convert a string into superscript text. Items that can't be converted will be left as is.  
@@ -134,13 +140,91 @@ var makeStrikeThrough = (messageText) => {
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
         currentCharAsStrike = fonts.strikeThrough[currentChar];
-        if(currentCharAsStrike){
+        if(currentCharAsStrike){ //check if strike through equivilent exists
             strikeThroughMessage+=currentCharAsStrike;
         }else{
-            strikeThroughMessage+=currentChar;
+            strikeThroughMessage+=currentChar; //if not add the current char as is 
         }
     }
     return strikeThroughMessage;
+}
+/**
+ * Method to have granular markup control. Reads for 3 char long sequences to denote how to markup certain chunks of text
+ * @param {string} messageText string to be converted
+ */
+var makeCustom = (messageText) => {
+    let customMessage = '';
+    let currentChar;
+    for(let i = 0; i < messageText.length; i++){
+        
+        currentChar = messageText.charAt(i);
+        
+        if(currentChar === '('){ //if we encounted (, see if user is trying to trigger markup
+            
+            let checkMarkup = messageText.substring((i+1),(i+3));//get the next two chars to capture the markup trigger
+            let markupSymbol = containsMarkUpSymbol(checkMarkup) 
+            
+            if(markupSymbol){ //found markup! now see if we can find it closing something
+                
+                let messagePastMarkup = messageText.substring(i+3); //get the remainder of the message past our first markup trigger
+                if(messagePastMarkup.includes('(' + markupSymbol + ')')){
+                   
+                    let endMarkUp = messagePastMarkup.indexOf('(' + markupSymbol + ')');
+                    let markupMessage = messageText.substring((i+3), i + endMarkUp + 3);
+                    
+                    customMessage+=getMarkupText(markupSymbol, markupMessage);
+                    
+                    i+=(markupMessage.length + 5); //skip over the entire markup portion we just added, no need to process again
+                }
+                else{
+                    customMessage+=currentChar; //found markup trigger but no ending trigger, so add as is
+                }
+            }
+            else{
+                customMessage+=currentChar;
+            }
+        }
+        else{
+            customMessage+=currentChar;
+        }
+    }
+    return customMessage;
+}
+
+var containsMarkUpSymbol = (messageText) => {
+    let markupSymbol;
+    let tempSymbol = messageText.charAt(0);
+    let checkParenthesis = messageText.charAt(1);
+    let containsMarkUp = false;
+    let index = 0; 
+    
+    while(!containsMarkUp && index < markupSymbols.length){
+        if(markupSymbols[index] === tempSymbol && (checkParenthesis === ')')){
+            containsMarkUp = true; 
+            markupSymbol=tempSymbol;
+        }
+        index++;
+    }
+
+    
+    return markupSymbol; //return the markup symbol we found, undefined if not found
+
+}
+
+var getMarkupText = (markupSymbol, message) => {
+    switch(markupSymbol){
+        case 't':
+            return makeTiny(message);
+            break;
+        case 's':
+            return makeSmallCaps(message);
+            break;
+        case '-':
+            return makeStrikeThrough(message);
+            break;
+        default:
+            return message;
+    }
 }
 
 bot.start();

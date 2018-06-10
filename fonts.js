@@ -167,6 +167,7 @@ Here are the commands you can access from here, but you can message me directly 
 /tiny Make your text ᵗᶦⁿʸ
 /smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 /strthr Make your text  ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶t̶
+/custom Granular control of how your messages appear with letter by letter control of their formatting
 `;
 
 module.exports = {
