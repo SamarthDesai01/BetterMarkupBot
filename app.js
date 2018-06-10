@@ -53,7 +53,6 @@ bot.on('inlineQuery', (msg) => {
 var makeTiny = (messageText) => {
     let tinyMessage = '';
     let currentChar;
-    messageText = messageText.toLowerCase();
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
         currentCharTiny = fonts.superscript[currentChar];
@@ -82,7 +81,7 @@ var makeSmallCaps = (messageText) => {
             smallCapsMessage+=currentCharCaps;
         }
         else{
-            smallCapsMessage+= currentCharCaps;
+            smallCapsMessage+= currentChar;
         }
     }
     return smallCapsMessage;
