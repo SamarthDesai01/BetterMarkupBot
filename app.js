@@ -2,7 +2,7 @@ const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(apikey.KEY);
-const markupSymbols = ['t','s','-'];
+const markupSymbols = ['t','s','-','b','i'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
@@ -85,7 +85,7 @@ bot.on(/^\/strthr (.+)$/, (msg, props) => {
 
 bot.on(/^\/custom (.+)$/, (msg, props) => {
     const text = props.match[1];
-    return bot.sendMessage(msg.from.id, makeCustom(text));
+    return bot.sendMessage(msg.from.id, makeCustom(text), {parseMode:'Markdown'});
 });
 
 
@@ -222,6 +222,11 @@ var getMarkupText = (markupSymbol, message) => {
         case '-':
             return makeStrikeThrough(message);
             break;
+        case 'b':
+            return '*' + message + '*';
+            break;
+        case 'i':
+            return '_' + message + '_';
         default:
             return message;
     }
