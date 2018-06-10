@@ -70,6 +70,11 @@ bot.on(/^\/smallcaps (.+)$/, (msg, props) => {
     return bot.sendMessage(msg.from.id, makeSmallCaps(text));
 });
 
+bot.on(/^\/strthr (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeStrikeThrough(text));
+});
+
 
 /**
  * Method to convert a string into superscript text. Items that can't be converted will be left as is.  
@@ -110,6 +115,21 @@ var makeSmallCaps = (messageText) => {
         }
     }
     return smallCapsMessage;
+}
+
+var makeStrikeThrough = (messageText) => {
+    let strikeThroughMessage = '';
+    let currentChar;
+    for (let i = 0; i < messageText.length; i++){
+        currentChar = messageText.charAt(i);
+        currentCharAsStrike = fonts.strikeThrough[currentChar];
+        if(currentCharAsStrike){
+            strikeThroughMessage+=currentCharAsStrike;
+        }else{
+            strikeThroughMessage+=currentChar;
+        }
+    }
+    return strikeThroughMessage;
 }
 
 bot.start();
