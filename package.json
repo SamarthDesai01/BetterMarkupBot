@@ -1,0 +1,14 @@
+{
+  "name": "barkupbot",
+  "version": "1.0.0",
+  "description": "Telegram Bot with advanced markup features",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samarth Desai",
+  "license": "ISC",
+  "dependencies": {
+    "telebot": "^1.2.6"
+  }
+}
