@@ -11,6 +11,7 @@ bot.on('inlineQuery', (msg) => {
     var tinyMessage = makeTiny(query);
     var smallCapsMessage = makeSmallCaps(query);
     var strikeThroughMessage = makeStrikeThrough(query);
+    var customMessage = makeCustom(query);
     console.log(msg.query);
 
     answers.addArticle({
@@ -50,6 +51,14 @@ bot.on('inlineQuery', (msg) => {
         message_text: strikeThroughMessage
     });
 
+    answers.addArticle({
+        id:'custom',
+        title:'Custom Formatting',
+        description:"Message bot for tutorial",
+        message_text: makeCustom(query),
+        parse_mode:'Markdown'
+    });
+
     return bot.answerQuery(answers);
 });
 
@@ -86,6 +95,10 @@ bot.on(/^\/strthr (.+)$/, (msg, props) => {
 bot.on(/^\/custom (.+)$/, (msg, props) => {
     const text = props.match[1];
     return bot.sendMessage(msg.from.id, makeCustom(text), {parseMode:'Markdown'});
+});
+
+bot.on('/customhelp', (msg,props) => {
+    return bot.sendMessage(msg.from.id, fonts.customHelpText, {parseMode:'Markdown'});
 });
 
 
@@ -137,11 +150,23 @@ var makeSmallCaps = (messageText) => {
 var makeStrikeThrough = (messageText) => {
     let strikeThroughMessage = '';
     let currentChar;
+    let mostRecentChar;
+    messageText = ' ' + messageText + ' ';
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
         currentCharAsStrike = fonts.strikeThrough[currentChar];
         if(currentCharAsStrike){ //check if strike through equivilent exists
-            strikeThroughMessage+=currentCharAsStrike;
+            if (mostRecentChar === ' '){
+                strikeThroughMessage+=currentCharAsStrike;
+            }else{
+                if(i === messageText.length - 1){
+                    strikeThroughMessage+=currentCharAsStrike;
+                }else{
+                    strikeThroughMessage+=currentCharAsStrike.substring(1,3);
+                }
+                mostRecentChar = currentChar;
+            }
+
         }else{
             strikeThroughMessage+=currentChar; //if not add the current char as is 
         }

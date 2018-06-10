@@ -122,7 +122,7 @@ const strikeThrough = {
     'a':' ̶a̶',
     'b':' ̶b̶',
     'c':' ̶c̶',
-    'd':'d̶',
+    'd':' ̶d̶',
     'e':' ̶e̶',
     'f':' ̶f̶',
     'g':' ̶g̶',
@@ -160,7 +160,7 @@ const strikeThrough = {
 }
 
 const startText = `
-Hey I'm BarkupBot! I'm an easy way to create stylized text in telegram!
+Hey I'm BarkupBot! I'm an easy way to create stylized text in Telegram!
 Here are the commands you can access from here, but you can message me directly in any chat and get the exact same features!
 /bold Make your text bold
 /italics Make your text italicized
@@ -168,11 +168,34 @@ Here are the commands you can access from here, but you can message me directly 
 /smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 /strthr Make your text  ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶t̶
 /custom Granular control of how your messages appear with letter by letter control of their formatting
+/customhelp Guide on how to take advantage of the custom command
 `;
+
+const customHelpText = `
+BarkupBot uses tags to help filter out what text you'd like to modify. Simply place whatever text you'd like modified between these tags and BarkupBot will take care of the rest.
+Tags are made of two parentheses with a single character in the middle to specify what formatting should be used. 
+
+Each formatting option has its own tag, here are the available tags:
+
+'/custom (b) Bold text (b) => *Bold text*
+'/custom (i) Italicized text (i)' => _Italicized text_
+'/custom (t) tiny text (t)' => ᵗᶦⁿʸ ᵗᵉˣᵗ
+'/custom (s) small caps (s)' => sᴍᴀʟʟ ᴄᴀᴘs
+'/custom (-) strike through (-)' => ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
+
+With this tool you can mix formatting types and output them in one message!
+
+Example: 
+'Barkup Bot is (-)a great(-) the (b)best(b) way to (i)format(i) text!'
+Outputs:
+Barkup Bot is  ̶a ̶g̶r̶e̶a̶t  the *best* way to _format_ text!
+
+`
 
 module.exports = {
     superscript,
     smallCaps,
     strikeThrough,
-    startText
+    startText,
+    customHelpText
 }
