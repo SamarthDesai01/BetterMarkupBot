@@ -1,7 +1,7 @@
-const telebot = require('telebot');
 const apikey = require('./apikey');
-const bot =  new telebot(apikey.KEY);
 const fonts = require('./fonts.js');
+const telebot = require('telebot');
+const bot =  new telebot(apikey.KEY);
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
@@ -9,6 +9,7 @@ bot.on('inlineQuery', (msg) => {
     const answers = bot.answerList(msg.id);
     var tinyMessage = makeTiny(query);
     var smallCapsMessage = makeSmallCaps(query);
+    var strikeThroughMessage = makeStrikeThrough(query);
     console.log(msg.query);
 
     answers.addArticle({
@@ -39,12 +40,18 @@ bot.on('inlineQuery', (msg) => {
         title: 'Small Caps',
         description: smallCapsMessage,
         message_text: smallCapsMessage
-    })
+    });
+
+    answers.addArticle({
+        id:"strikeThrough",
+        title:'Strike Through',
+        description:strikeThroughMessage,
+        message_text: strikeThroughMessage
+    });
 
     return bot.answerQuery(answers);
-
-
 });
+
 
 bot.on('/start', (msg, props) => {
     return bot.sendMessage(msg.from.id, fonts.startText);
@@ -117,6 +124,10 @@ var makeSmallCaps = (messageText) => {
     return smallCapsMessage;
 }
 
+/**
+ * Method to convert a string into strike through text. Items that can't be converted will be left as is.
+ * @param {string} messageText string to be converted to strike through
+ */
 var makeStrikeThrough = (messageText) => {
     let strikeThroughMessage = '';
     let currentChar;
