@@ -165,13 +165,13 @@ const fullWidth = {
     'C':'Ｃ',
     'D':'Ｄ',
     'E':'Ｅ',
-    'F' :'Ｆ',
+    'F':'Ｆ',
     'G':'Ｇ',
     'H':'Ｈ',
     'I':'Ｉ',
     'J':'Ｊ',
     'K':'Ｋ',
-    'L:':'Ｌ',
+    'L':'Ｌ',
     'M':'Ｍ',
     'N':'Ｎ',
     'O':'Ｏ',
@@ -230,6 +230,7 @@ Here are the commands you can access from here, but you can message me directly 
 /tiny Make your text ᵗᶦⁿʸ
 /smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 /strthr Make your text  ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶t̶
+/full Make you text ａｅｓｔｈｅｔｉｃ 
 /custom Granular control of how your messages appear with letter by letter control of their formatting
 /customhelp Guide on how to take advantage of the custom command
 `;

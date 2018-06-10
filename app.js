@@ -2,7 +2,7 @@ const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(apikey.KEY);
-const markupSymbols = ['t','s','-','b','i'];
+const markupSymbols = ['t','s','-','b','i', 'f'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
@@ -11,7 +11,7 @@ bot.on('inlineQuery', (msg) => {
     var tinyMessage = makeTiny(query);
     var smallCapsMessage = makeSmallCaps(query);
     var strikeThroughMessage = makeStrikeThrough(query);
-    var customMessage = makeCustom(query);
+    var fullWidthMessage = makeFullWidth(query);
     console.log(msg.query);
 
     answers.addArticle({
@@ -52,6 +52,13 @@ bot.on('inlineQuery', (msg) => {
     });
 
     answers.addArticle({
+        id:'fullWidth',
+        title:'Full Width',
+        description: fullWidthMessage,
+        message_text: fullWidthMessage
+    })
+
+    answers.addArticle({
         id:'custom',
         title:'Custom Formatting',
         description:"Message bot for tutorial",
@@ -90,6 +97,11 @@ bot.on(/^\/smallcaps (.+)$/, (msg, props) => {
 bot.on(/^\/strthr (.+)$/, (msg, props) => {
     const text = props.match[1];
     return bot.sendMessage(msg.from.id, makeStrikeThrough(text));
+});
+
+bot.on(/^\/full (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeFullWidth(text));
 });
 
 bot.on(/^\/custom (.+)$/, (msg, props) => {
@@ -155,16 +167,16 @@ var makeStrikeThrough = (messageText) => {
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
         currentCharAsStrike = fonts.strikeThrough[currentChar];
-        if(currentCharAsStrike){ //check if strike through equivilent exists
-            if (mostRecentChar === ' '){
+        if(currentCharAsStrike){ //check if strike through equivalent exists
+            if (mostRecentChar === ' '){ //start of a new word no need to cut down on strike through
                 strikeThroughMessage+=currentCharAsStrike;
             }else{
-                if(i === messageText.length - 1){
-                    strikeThroughMessage+=currentCharAsStrike;
+                if(i === messageText.length - 1){ 
+                    strikeThroughMessage+=currentCharAsStrike; //if last char, add strike through as is 
                 }else{
-                    strikeThroughMessage+=currentCharAsStrike.substring(1,3);
+                    strikeThroughMessage+=currentCharAsStrike.substring(1,3); //to prevent spacing issues within words, cut down on extra strike through
                 }
-                mostRecentChar = currentChar;
+                mostRecentChar = currentChar; //update most recent char
             }
 
         }else{
@@ -173,6 +185,25 @@ var makeStrikeThrough = (messageText) => {
     }
     return strikeThroughMessage;
 }
+
+/**
+ * Method to convert a string into unicode full width text. Items that can't be converted will be left as is. 
+ * @param {string} messageText string to be converted to full width text
+ */
+var makeFullWidth = (messageText) => {
+    let fullWidthMessage = '';
+    for(let i = 0; i < messageText.length; i++){
+        currentChar = messageText.charAt(i);
+        currentCharAsFullWidth = fonts.fullWidth[currentChar];
+        if(currentCharAsFullWidth){
+            fullWidthMessage+=currentCharAsFullWidth;
+        }else{
+            fullWidthMessage+=currentChar;
+        }
+    }
+    return fullWidthMessage;
+}
+
 /**
  * Method to have granular markup control. Reads for 3 char long sequences to denote how to markup certain chunks of text
  * @param {string} messageText string to be converted
@@ -230,7 +261,6 @@ var containsMarkUpSymbol = (messageText) => {
         }
         index++;
     }
-
     
     return markupSymbol; //return the markup symbol we found, undefined if not found
 
@@ -252,6 +282,10 @@ var getMarkupText = (markupSymbol, message) => {
             break;
         case 'i':
             return '_' + message + '_';
+            break;
+        case 'f':
+            return makeFullWidth(message);
+            break;
         default:
             return message;
     }
