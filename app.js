@@ -4,11 +4,11 @@ const bot =  new telebot(apikey.KEY);
 const fonts = require('./fonts.js');
 
 bot.on('inlineQuery', (msg) => {
-    //console.log(JSON.stringify(msg, undefined, 4));
     let query = msg.query;
 
     const answers = bot.answerList(msg.id);
-
+    var tinyMessage = makeTiny(query);
+    var smallCapsMessage = makeSmallCaps(query);
     console.log(msg.query);
 
     answers.addArticle({
@@ -30,15 +30,26 @@ bot.on('inlineQuery', (msg) => {
     answers.addArticle({
         id: "superscript",
         title: 'Superscript',
-        description: makeTiny(query), 
-        message_text: makeTiny(query)
+        description: tinyMessage, 
+        message_text: tinyMessage
     });
+
+    answers.addArticle({
+        id: "smallCaps",
+        title: 'Small Caps',
+        description: smallCapsMessage,
+        message_text: smallCapsMessage
+    })
 
     return bot.answerQuery(answers);
 
 
 });
 
+/**
+ * Method to convert a string into superscript text. Items that can't be converted will be left as is.  
+ * @param {string} messageText string to be converted into superscript text.
+ */
 var makeTiny = (messageText) => {
     let tinyMessage = '';
     let currentChar;
@@ -54,6 +65,27 @@ var makeTiny = (messageText) => {
         }
     }
     return tinyMessage;
+}
+
+/**
+ * Method to convert a string into small caps text. Items that can't be converted will be left as is. 
+ * @param {string} messageText string to be converted to small caps
+ */
+var makeSmallCaps = (messageText) => {
+    let smallCapsMessage = '';
+    let currentChar;
+    messageText = messageText.toLowerCase();
+    for (let i = 0; i < messageText.length; i++){
+        currentChar = messageText.charAt(i);
+        currentCharCaps = fonts.smallCaps[currentChar];
+        if(currentCharCaps){
+            smallCapsMessage+=currentCharCaps;
+        }
+        else{
+            smallCapsMessage+= currentCharCaps;
+        }
+    }
+    return smallCapsMessage;
 }
 
 bot.start();
