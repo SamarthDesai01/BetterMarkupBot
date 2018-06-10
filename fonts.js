@@ -92,7 +92,15 @@ const smallCaps = {
     'z':'ᴢ'
 }
 
+const startText = `
+Hey I'm BarkupBot! I'm an easy way to create stylized text in telegram!
+Here are the commands you can access from here, but you can message me directly in any chat and get the exact same features!
+/bold Make your text bold
+/italics Make your text italicized
+`;
+
 module.exports = {
     superscript,
-    smallCaps
+    smallCaps,
+    startText
 }

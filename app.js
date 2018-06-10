@@ -46,6 +46,21 @@ bot.on('inlineQuery', (msg) => {
 
 });
 
+bot.on('/start', (msg, props) => {
+    return bot.sendMessage(msg.from.id, fonts.startText);
+})
+
+bot.on(/^\/bold (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, "*" + text + "*", {parseMode: "Markdown"});
+});
+
+bot.on(/^\/italics (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id,"_" + text + "_", { parseMode: "Markdown" });
+});
+
+
 /**
  * Method to convert a string into superscript text. Items that can't be converted will be left as is.  
  * @param {string} messageText string to be converted into superscript text.
