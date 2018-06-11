@@ -2,7 +2,7 @@ const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(apikey.KEY);
-const markupSymbols = ['t','s','-','b','i', 'f'];
+const markupSymbols = ['t','s','-','b','i', 'f','m'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
@@ -12,6 +12,7 @@ bot.on('inlineQuery', (msg) => {
     var smallCapsMessage = makeSmallCaps(query);
     var strikeThroughMessage = makeStrikeThrough(query);
     var fullWidthMessage = makeFullWidth(query);
+    var mockMessage = makeMock(query);
     console.log(msg.query);
 
     answers.addArticle({
@@ -59,6 +60,13 @@ bot.on('inlineQuery', (msg) => {
     })
 
     answers.addArticle({
+        id:'mock',
+        title:'Mock text',
+        description: mockMessage,
+        message_text: mockMessage
+    })
+
+    answers.addArticle({
         id:'custom',
         title:'Custom Formatting',
         description:"Message bot for tutorial",
@@ -102,6 +110,11 @@ bot.on(/^\/strthr (.+)$/, (msg, props) => {
 bot.on(/^\/full (.+)$/, (msg, props) => {
     const text = props.match[1];
     return bot.sendMessage(msg.from.id, makeFullWidth(text));
+});
+
+bot.on(/^\/mock (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeMock(text));
 });
 
 bot.on(/^\/custom (.+)$/, (msg, props) => {
@@ -205,6 +218,23 @@ var makeFullWidth = (messageText) => {
 }
 
 /**
+ * Method to alternate case of each letter in a string. Items that can't be case shifted will be left as is
+ * @param {string} messageText string to alternate case with
+ */
+var makeMock = (messageText) => {
+    let mockMessage = '';
+    for (let i = 0; i < messageText.length; i++){
+        currentChar = messageText.charAt(i);
+        if(i%2 === 1){
+            mockMessage+=currentChar.toUpperCase();
+        }else{
+            mockMessage+=currentChar.toLowerCase();
+        }
+    }
+    return mockMessage; 
+}
+
+/**
  * Method to have granular markup control. Reads for 3 char long sequences to denote how to markup certain chunks of text
  * @param {string} messageText string to be converted
  */
@@ -286,6 +316,8 @@ var getMarkupText = (markupSymbol, message) => {
         case 'f':
             return makeFullWidth(message);
             break;
+        case 'm':
+            return makeMock(message);
         default:
             return message;
     }

@@ -231,6 +231,7 @@ Here are the commands you can access from here, but you can message me directly 
 /smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 /strthr Make your text  ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶t̶
 /full Make you text ａｅｓｔｈｅｔｉｃ 
+/mock Make your text mOcKiNg
 /custom Granular control of how your messages appear with letter by letter control of their formatting
 /customhelp Guide on how to take advantage of the custom command
 `;
@@ -247,6 +248,7 @@ Each formatting option has its own tag, here are the available tags:
 \`/custom (s) small caps (s)\` 🡺 sᴍᴀʟʟ ᴄᴀᴘs
 \`/custom (-) strike through (-)\` 🡺 ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
 \`/custom (f) full width (f)\` 🡺  ａｅsｔｈｅｔｉｃ
+\`/custom (m) mock (m)\` 🡺 mOcK
 
 With this tool you can mix formatting types and output them in one message!
 
