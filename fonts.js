@@ -241,11 +241,12 @@ Tags are made of two parentheses with a single character in the middle to specif
 
 Each formatting option has its own tag, here are the available tags:
 
-'/custom (b) Bold text (b) => *Bold text*
-'/custom (i) Italicized text (i)' => _Italicized text_
-'/custom (t) tiny text (t)' => ᵗᶦⁿʸ ᵗᵉˣᵗ
-'/custom (s) small caps (s)' => sᴍᴀʟʟ ᴄᴀᴘs
-'/custom (-) strike through (-)' => ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
+\`/custom (b) Bold text (b)\` => *Bold text*
+\`/custom (i) Italicized text (i)\` => _Italicized text_
+\`/custom (t) tiny text (t)\` => ᵗᶦⁿʸ ᵗᵉˣᵗ
+\`/custom (s) small caps (s)\` => sᴍᴀʟʟ ᴄᴀᴘs
+\`/custom (-) strike through (-)\` => ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
+\`/custom (f) full width (f)\` =>  ａｅsｔｈｅｔｉｃ
 
 With this tool you can mix formatting types and output them in one message!
 
