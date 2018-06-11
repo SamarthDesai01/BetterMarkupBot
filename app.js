@@ -1,4 +1,3 @@
-const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(process.env.KEY);
