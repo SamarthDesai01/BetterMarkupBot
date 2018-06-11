@@ -1,7 +1,7 @@
 const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
-const bot =  new telebot(apikey.KEY);
+const bot =  new telebot(process.env.KEY);
 const markupSymbols = ['t','s','-','b','i', 'f','m','u'];
 
 bot.on('inlineQuery', (msg) => {
