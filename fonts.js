@@ -268,7 +268,7 @@ const underLine = {
     'q':'q̲',
     'r':'r̲',
     's':'s̲',
-    't':' t̲',
+    't':'t̲',
     'u':'u̲',
     'v':'v̲',
     'w':'w̲',
@@ -285,6 +285,11 @@ const underLine = {
     '7':'7̲',
     '8':'8̲',
     '9':' 9̲',
+    '?':'?̲',
+    '!':'!̲',
+    '\'':'\'̲',
+    '\"':'\"̲'
+
 }
 
 const startText = `
@@ -295,6 +300,7 @@ Here are the commands you can access from here, but you can message me directly 
 /tiny Make your text ᵗᶦⁿʸ
 /smallcaps Make your text sᴍᴀʟʟ ᴡɪᴛʜ ᴄᴀᴘs
 /strthr Make your text  ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶t̶
+/under Make your text  u̲n̲d̲e̲r̲l̲i̲n̲e̲d̲
 /full Make you text ａｅｓｔｈｅｔｉｃ 
 /mock Make your text mOcKiNg
 /custom Granular control of how your messages appear with letter by letter control of their formatting
@@ -312,6 +318,7 @@ Each formatting option has its own tag, here are the available tags:
 \`/custom (t) tiny text (t)\` 🡺 ᵗᶦⁿʸ ᵗᵉˣᵗ
 \`/custom (s) small caps (s)\` 🡺 sᴍᴀʟʟ ᴄᴀᴘs
 \`/custom (-) strike through (-)\` 🡺 ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
+\`/custom (u) underline (u)\` 🡺  u̲n̲d̲e̲r̲l̲i̲n̲e̲d̲
 \`/custom (f) full width (f)\` 🡺  ａｅsｔｈｅｔｉｃ
 \`/custom (m) mock (m)\` 🡺 mOcK
 
@@ -329,6 +336,7 @@ module.exports = {
     smallCaps,
     strikeThrough,
     fullWidth,
+    underLine,
     startText,
     customHelpText
 }

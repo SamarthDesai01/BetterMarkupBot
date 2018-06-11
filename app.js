@@ -2,25 +2,28 @@ const apikey = require('./apikey');
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(apikey.KEY);
-const markupSymbols = ['t','s','-','b','i', 'f','m'];
+const markupSymbols = ['t','s','-','b','i', 'f','m','u'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query;
 
     const answers = bot.answerList(msg.id);
+    
     var tinyMessage = makeTiny(query);
     var smallCapsMessage = makeSmallCaps(query);
     var strikeThroughMessage = makeStrikeThrough(query);
     var fullWidthMessage = makeFullWidth(query);
     var mockMessage = makeMock(query);
-    console.log(msg.query);
+    var underLineMessage = makeUnderline(query);
+    
 
     answers.addArticle({
         id: 'query',
         title: 'Bold',
         description: '\**' + query + '\**',
         message_text: '*'+ query + '*',
-        parse_mode: 'Markdown' 
+        parse_mode: 'Markdown', 
+        thumb_url: 'https://telegram.org/img/t_logo.png' 
     });
 
     answers.addArticle({
@@ -50,6 +53,14 @@ bot.on('inlineQuery', (msg) => {
         title:'Strike Through',
         description:strikeThroughMessage,
         message_text: strikeThroughMessage
+    });
+
+    answers.addArticle({
+        id:'underline',
+        title:'Underline',
+        description: underLineMessage,
+        message_text: underLineMessage,
+        parse_mode:'Markdown'
     });
 
     answers.addArticle({
@@ -105,6 +116,11 @@ bot.on(/^\/smallcaps (.+)$/, (msg, props) => {
 bot.on(/^\/strthr (.+)$/, (msg, props) => {
     const text = props.match[1];
     return bot.sendMessage(msg.from.id, makeStrikeThrough(text));
+});
+
+bot.on(/^\/under (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeUnderline(text));
 });
 
 bot.on(/^\/full (.+)$/, (msg, props) => {
@@ -223,6 +239,7 @@ var makeFullWidth = (messageText) => {
  */
 var makeMock = (messageText) => {
     let mockMessage = '';
+    messageText=messageText.toLowerCase();
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
         if(i%2 === 1){
@@ -232,6 +249,22 @@ var makeMock = (messageText) => {
         }
     }
     return mockMessage; 
+}
+
+var makeUnderline = (messageText) => {
+    let underMessage = ' ̲';
+
+    for (let i = 0; i < messageText.length; i++){
+        currentChar = messageText.charAt(i);
+        currentCharAsUnder = fonts.underLine[currentChar];
+        if (currentCharAsUnder){
+            underMessage+=currentCharAsUnder;
+        }else{
+            underMessage+=currentChar;
+        }
+    }
+    
+    return underMessage;
 }
 
 /**
@@ -318,6 +351,9 @@ var getMarkupText = (markupSymbol, message) => {
             break;
         case 'm':
             return makeMock(message);
+            break;
+        case 'u':
+            return makeUnderline(message);
         default:
             return message;
     }
