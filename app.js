@@ -23,7 +23,7 @@ bot.on('inlineQuery', (msg) => {
         description: '\**' + query + '\**',
         message_text: '*'+ query + '*',
         parse_mode: 'Markdown', 
-        thumb_url: 'https://telegram.org/img/t_logo.png' 
+        thumb_url: 'https://image.ibb.co/iXEoA8/Slide1.png'
     });
 
     answers.addArticle({
@@ -31,28 +31,32 @@ bot.on('inlineQuery', (msg) => {
         title: 'Italics',
         description: '_' + query + '_',
         message_text: '_' + query + '_',
-        parse_mode: 'Markdown'
+        parse_mode: 'Markdown',
+        thumb_url:'https://image.ibb.co/fvPYco/Slide2.png'
     });
 
     answers.addArticle({
         id: "superscript",
         title: 'Superscript',
         description: tinyMessage, 
-        message_text: tinyMessage
+        message_text: tinyMessage,
+        thumb_url:'https://image.ibb.co/hkzc3T/Slide3.png'
     });
 
     answers.addArticle({
         id: "smallCaps",
         title: 'Small Caps',
         description: smallCapsMessage,
-        message_text: smallCapsMessage
+        message_text: smallCapsMessage,
+        thumb_url:'https://image.ibb.co/n26PiT/Slide4.png'
     });
 
     answers.addArticle({
         id:"strikeThrough",
         title:'Strike Through',
         description:strikeThroughMessage,
-        message_text: strikeThroughMessage
+        message_text: strikeThroughMessage,
+        thumb_url:'https://image.ibb.co/dnKMV8/Slide5.png'
     });
 
     answers.addArticle({
@@ -60,21 +64,25 @@ bot.on('inlineQuery', (msg) => {
         title:'Underline',
         description: underLineMessage,
         message_text: underLineMessage,
-        parse_mode:'Markdown'
+        parse_mode:'Markdown',
+        thumb_url:'https://image.ibb.co/n4Vvq8/Slide6.png'
+
     });
 
     answers.addArticle({
         id:'fullWidth',
         title:'Full Width',
         description: fullWidthMessage,
-        message_text: fullWidthMessage
+        message_text: fullWidthMessage,
+        thumb_url:'https://image.ibb.co/mZPMV8/Slide7.png'
     })
 
     answers.addArticle({
         id:'mock',
         title:'Mock text',
         description: mockMessage,
-        message_text: mockMessage
+        message_text: mockMessage,
+        thumb_url:'https://image.ibb.co/jdhVOT/Slide8.png' 
     })
 
     answers.addArticle({
@@ -82,7 +90,8 @@ bot.on('inlineQuery', (msg) => {
         title:'Custom Formatting',
         description:"Message bot for tutorial",
         message_text: makeCustom(query),
-        parse_mode:'Markdown'
+        parse_mode:'Markdown',
+        thumb_url:'https://image.ibb.co/e7Lv7o/Slide9.png'
     });
 
     return bot.answerQuery(answers);
@@ -252,7 +261,7 @@ var makeMock = (messageText) => {
 }
 
 var makeUnderline = (messageText) => {
-    let underMessage = ' ̲';
+    let underMessage = '';
 
     for (let i = 0; i < messageText.length; i++){
         currentChar = messageText.charAt(i);
