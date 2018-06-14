@@ -264,16 +264,12 @@ var makeMock = (messageText) => {
  * @param {string} messageText string to underline
  */
 var makeUnderline = (messageText) => {
-    let underMessage = '';
-
-    for (let i = 0; i < messageText.length; i++){
-        currentChar = messageText.charAt(i);
-        currentCharAsUnder = fonts.underLine[currentChar];
-        if (currentCharAsUnder){
-            underMessage+=currentCharAsUnder;
-        }else{
-            underMessage+=currentChar;
-        }
+    var finalMessage = "";
+    const underLine ='\u0332';
+    for(var i = 0; i < str.length; i++){
+        var currChar = str.charAt(i);
+        underMessage+=currChar;
+        underMessage+=underLine;
     }
     
     return underMessage;
@@ -369,6 +365,6 @@ var getMarkupText = (markupSymbol, message) => {
         default:
             return message;
     }
-}
+}  
 
 bot.start();
