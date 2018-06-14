@@ -259,6 +259,10 @@ var makeMock = (messageText) => {
     return mockMessage; 
 }
 
+/**
+ * Method to underline each letter in a string. Items that can't be underlined will be left as is. 
+ * @param {string} messageText string to underline
+ */
 var makeUnderline = (messageText) => {
     let underMessage = '';
 
