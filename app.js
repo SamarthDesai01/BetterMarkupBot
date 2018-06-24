@@ -4,8 +4,8 @@ const bot =  new telebot(process.env.KEY);
 const markupSymbols = ['t','s','-','b','i', 'f','m','u'];
 
 bot.on('inlineQuery', (msg) => {
-    let query = msg.query.trim();
-
+    let query = msg.query;
+    query = query.trim();
     const answers = bot.answerList(msg.id);
     
     var tinyMessage = makeTiny(query);
