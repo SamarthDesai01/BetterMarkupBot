@@ -4,7 +4,7 @@ const bot =  new telebot(process.env.KEY);
 const markupSymbols = ['t','s','-','b','i', 'f','m','u'];
 
 bot.on('inlineQuery', (msg) => {
-    let query = msg.query;
+    let query = msg.query.trim();
     const answers = bot.answerList(msg.id);
     
     var tinyMessage = makeTiny(query);
@@ -263,10 +263,10 @@ var makeMock = (messageText) => {
  * @param {string} messageText string to underline
  */
 var makeUnderline = (messageText) => {
-    var finalMessage = "";
+    var underMessage = "";
     const underLine ='\u0332';
-    for(var i = 0; i < str.length; i++){
-        var currChar = str.charAt(i);
+    for(var i = 0; i < messageText.length; i++){
+        var currChar = messageText.charAt(i);
         underMessage+=currChar;
         underMessage+=underLine;
     }
