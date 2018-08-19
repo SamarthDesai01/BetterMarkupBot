@@ -4,7 +4,7 @@ BetterMarkupBot or [@BarkupBot](https://telegram.me/BarkupBot) for short is a Te
 ## Use
 Barkup offers text formatting tools far beyond what Telegram natively offers. Besides the usual bold and italic formatting options built into Telegram by default Barkup also includes superscript, small caps, strike through, underline, unicode full width, and mock text formatting options. 
 
-These tools are availible via direct messaging to the bot or via inline queries so you can access these options within any conversation on Telegram. 
+These tools are available via direct messaging to the bot or via inline queries so you can access these options within any conversation on Telegram. 
 
 ### Direct Message Command List
 Each command followed by your message will cause the bot to reply with your exact message in the formatting option you specified. 
