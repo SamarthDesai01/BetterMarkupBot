@@ -1,7 +1,7 @@
 const fonts = require('./fonts.js');
 const telebot = require('telebot');
 const bot =  new telebot(process.env.KEY);
-const markupSymbols = ['t','s','-','b','i', 'f','m','u'];
+const markupSymbols = ['t','s','-','b','i', 'f','m','u','a'];
 
 bot.on('inlineQuery', (msg) => {
     let query = msg.query.trim();
@@ -13,6 +13,7 @@ bot.on('inlineQuery', (msg) => {
     var fullWidthMessage = makeFullWidth(query);
     var mockMessage = makeMock(query);
     var underLineMessage = makeUnderline(query);
+    var australianMessage = makeAustralian(query);
     
 
     answers.addArticle({
@@ -66,6 +67,16 @@ bot.on('inlineQuery', (msg) => {
         thumb_url:'https://image.ibb.co/n4Vvq8/Slide6.png'
 
     });
+
+    answers.addArticle({
+        id:'australian',
+        title:'Australian',
+        description: australianMessage,
+        message_text: australianMessage,
+        thumb_url:'https://image.ibb.co/e6b3EK/australian.png'
+
+    });
+
 
     answers.addArticle({
         id:'fullWidth',
@@ -128,6 +139,11 @@ bot.on(/^\/strthr (.+)$/, (msg, props) => {
 bot.on(/^\/under (.+)$/, (msg, props) => {
     const text = props.match[1];
     return bot.sendMessage(msg.from.id, makeUnderline(text));
+});
+
+bot.on(/^\/australian (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, makeAustralian(text));
 });
 
 bot.on(/^\/full (.+)$/, (msg, props) => {
@@ -274,6 +290,20 @@ var makeUnderline = (messageText) => {
     return underMessage;
 }
 
+var makeAustralian = (messageText) => {
+    var austMessage = "";
+    for(var i = 0; i < messageText.length; i++){
+        var currentChar = messageText.charAt(i);
+        var currentCharAsAustralian = fonts.australian[currentChar];
+        if(currentCharAsAustralian){
+            austMessage+=currentCharAsAustralian;
+        }else{
+            austMessage+=currentChar;
+        }
+    }
+    return austMessage;
+}
+
 /**
  * Method to have granular markup control. Reads for 3 char long sequences to denote how to markup certain chunks of text
  * @param {string} messageText string to be converted
@@ -285,7 +315,7 @@ var makeCustom = (messageText) => {
         
         currentChar = messageText.charAt(i);
         
-        if(currentChar === '('){ //if we encounted (, see if user is trying to trigger markup
+        if(currentChar === '('){ //if we encountered (, see if user is trying to trigger markup
             
             let checkMarkup = messageText.substring((i+1),(i+3));//get the next two chars to capture the markup trigger
             let markupSymbol = containsMarkUpSymbol(checkMarkup) 
@@ -361,6 +391,9 @@ var getMarkupText = (markupSymbol, message) => {
             break;
         case 'u':
             return makeUnderline(message);
+        case 'a':
+            return makeAustralian(message);
+            break;
         default:
             return message;
     }
