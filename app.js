@@ -292,7 +292,7 @@ var makeUnderline = (messageText) => {
 
 var makeAustralian = (messageText) => {
     var austMessage = "";
-    for(var i = 0; i < messageText.length; i++){
+    for(var i = messageText.length - 1; i >= 0; i--){
         var currentChar = messageText.charAt(i);
         var currentCharAsAustralian = fonts.australian[currentChar];
         if(currentCharAsAustralian){
