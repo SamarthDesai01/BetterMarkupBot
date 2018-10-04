@@ -9,7 +9,7 @@ These tools are available via direct messaging to the bot or via inline queries 
 ### Direct Message Command List
 Each command followed by your message will cause the bot to reply with your exact message in the formatting option you specified. 
 
-|Command   |     Ouput        |Tag|
+|Command   |     Output        |Tag|
 |----------|------------------|---|
 |/bold     |Bold text         |(b)|
 |/italics  |Italicized text   |(i)|
