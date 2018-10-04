@@ -390,6 +390,7 @@ Each formatting option has its own tag, here are the available tags:
 \`/custom (-) strike through (-)\` 🡺 ̶s̶̶t̶̶r̶̶i̶̶k̶̶e̶ ̶t̶̶h̶̶r̶̶o̶̶u̶̶g̶h̶
 \`/custom (u) underline (u)\` 🡺  u̲n̲d̲e̲r̲l̲i̲n̲e̲d̲
 \`/custom (f) full width (f)\` 🡺  ａｅsｔｈｅｔｉｃ
+\`/custom (a) australian (a)\` 🡺 uɐıʃɐɹʇsnɐ
 \`/custom (m) mock (m)\` 🡺 mOcK
 
 With this tool you can mix formatting types and output them in one message!

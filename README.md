@@ -19,6 +19,7 @@ Each command followed by your message will cause the bot to reply with your exac
 |/under    |Underlined text    |(u)|
 |/full     |Full width text    |(f)|
 |/mock     |mOcK tExT          |(m)|
+|/australian     |Australian text|   |(a)|
 |/custom   |Custom formatted text|N/A|
 |/customhelp|Custom use guide|   N/A|
 
